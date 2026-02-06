@@ -84,7 +84,7 @@ services:
       SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
       SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
       SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
-      SECRETS_secret_key: "${SERVICE_BASE64_32}"
+      SECRETS_secret_key: "OgyPTPi88HjcdvH2DYYjMn00Rj5QZ7qL"
       SETTING_EXTERNAL_HOST: "${SERVICE_FQDN_ZULIP}"
       SETTING_ZULIP_ADMINISTRATOR: "admin@heal-digital.com"
 
