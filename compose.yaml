@@ -6,12 +6,11 @@ services:
     environment:
       POSTGRES_DB: "zulip"
       POSTGRES_USER: "zulip"
-      POSTGRES_PASSWORD_FILE: /run/secrets/zulip__postgres_password
+      POSTGRES_PASSWORD: "${SERVICE_PASSWORD_POSTGRES}"          # ← direct magic var (Coolify generates)
     volumes:
       - "postgresql-14:/var/lib/postgresql/data:rw"
-    secrets:
-      - zulip__postgres_password
     attach: false
+
   memcached:
     image: "memcached:alpine"
     restart: unless-stopped
@@ -20,16 +19,15 @@ services:
       - "-euc"
       - |
         echo 'mech_list: plain' > "$$SASL_CONF_PATH"
-        echo "zulip@$$HOSTNAME:$$(cat $$MEMCACHED_PASSWORD_FILE)" > "$$MEMCACHED_SASL_PWDB"
-        echo "zulip@localhost:$$(cat $$MEMCACHED_PASSWORD_FILE)" >> "$$MEMCACHED_SASL_PWDB"
+        echo "zulip@$$HOSTNAME:${MEMCACHED_PASSWORD}" > "$$MEMCACHED_SASL_PWDB"
+        echo "zulip@localhost:${MEMCACHED_PASSWORD}" >> "$$MEMCACHED_SASL_PWDB"
         exec memcached -S
-    secrets:
-      - zulip__memcached_password
     environment:
       SASL_CONF_PATH: "/home/memcache/memcached.conf"
       MEMCACHED_SASL_PWDB: "/home/memcache/memcached-sasl-db"
-      MEMCACHED_PASSWORD_FILE: /run/secrets/zulip__memcached_password
+      MEMCACHED_PASSWORD: "${SERVICE_PASSWORD_MEMCACHED}"         # ← direct
     attach: false
+
   rabbitmq:
     image: "rabbitmq:4.2"
     restart: unless-stopped
@@ -37,57 +35,54 @@ services:
       - "sh"
       - "-euc"
       - |
-        export RABBITMQ_DEFAULT_PASS="$$(cat $$RABBITMQ_PASSWORD_FILE)"
+        export RABBITMQ_DEFAULT_PASS="${RABBITMQ_DEFAULT_PASS}"
         echo 'default_user = $${RABBITMQ_DEFAULT_USER}' >> /etc/rabbitmq/rabbitmq.conf
         echo 'default_pass = $${RABBITMQ_DEFAULT_PASS}' >> /etc/rabbitmq/rabbitmq.conf
         exec docker-entrypoint.sh rabbitmq-server
-    secrets:
-      - zulip__rabbitmq_password
     environment:
       RABBITMQ_DEFAULT_USER: "zulip"
-      RABBITMQ_PASSWORD_FILE: /run/secrets/zulip__rabbitmq_password
+      RABBITMQ_DEFAULT_PASS: "${SERVICE_PASSWORD_RABBITMQ}"       # ← direct
     volumes:
       - "rabbitmq:/var/lib/rabbitmq:rw"
     attach: false
+
   redis:
     image: "redis:alpine"
     restart: unless-stopped
     command:
       - "sh"
       - "-euc"
-      - '/usr/local/bin/docker-entrypoint.sh --requirepass "$$(cat $$REDIS_PASSWORD_FILE)"'
-    secrets:
-      - zulip__redis_password
+      - '/usr/local/bin/docker-entrypoint.sh --requirepass "${REDIS_PASSWORD}"'
     environment:
-      REDIS_PASSWORD_FILE: /run/secrets/zulip__redis_password
+      REDIS_PASSWORD: "${SERVICE_PASSWORD_REDIS}"                 # ← direct
     volumes:
       - "redis:/data:rw"
     attach: false
+
   zulip:
     image: "zulip/docker-zulip:11.5-0"
     restart: unless-stopped
     build:
       context: .
-    # ports: → REMOVED completely (Coolify Traefik will proxy to internal port 80)
-    secrets:
-      - zulip__postgres_password
-      - zulip__memcached_password
-      - zulip__rabbitmq_password
-      - zulip__redis_password
-      - zulip__secret_key
-      # zulip__email_password → keep only if you actually use incoming/outgoing email features
+    # ports: removed (Traefik proxy)
     environment:
-      # Proxy / reverse proxy settings (critical for Traefik)
+      # Proxy settings
       DISABLE_HTTPS: "True"
       LOADBALANCER_IPS: "172.16.0.0/12,10.0.0.0/8,192.168.0.0/16"
 
-      # Service connections (internal hostnames)
+      # Connections
       SETTING_REMOTE_POSTGRES_HOST: "database"
       SETTING_MEMCACHED_LOCATION: "memcached:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
       SETTING_REDIS_HOST: "redis"
 
-      # ulimits and depends_on stay the same
+      # Secrets for Zulip (entrypoint reads these)
+      SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
+      SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
+      SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
+      SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
+      SECRETS_secret_key: "${SERVICE_BASE64_SECRET_KEY_64}"
+
     volumes:
       - "zulip:/data:rw"
     ulimits:
@@ -99,6 +94,7 @@ services:
       - memcached
       - rabbitmq
       - redis
+
 volumes:
   zulip:
   postgresql-14:
