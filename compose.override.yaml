@@ -1,15 +1,15 @@
 ---
-secrets:
-  zulip__postgres_password:
-    environment: "${SERVICE_PASSWORD_POSTGRES}"
-  zulip__memcached_password:
-    environment: "${SERVICE_PASSWORD_MEMCACHED}"
-  zulip__rabbitmq_password:
-    environment: "${SERVICE_PASSWORD_RABBITMQ}"
-  zulip__redis_password:
-    environment: "${SERVICE_PASSWORD_REDIS}"
-  zulip__secret_key:
-    environment: "${SERVICE_BASE64_SECRET_KEY_64}"
+# secrets:
+#   zulip__postgres_password:
+#     environment: "${SERVICE_PASSWORD_POSTGRES}"
+#   zulip__memcached_password:
+#     environment: "${SERVICE_PASSWORD_MEMCACHED}"
+#   zulip__rabbitmq_password:
+#     environment: "${SERVICE_PASSWORD_RABBITMQ}"
+#   zulip__redis_password:
+#     environment: "${SERVICE_PASSWORD_REDIS}"
+#   zulip__secret_key:
+#     environment: "${SERVICE_BASE64_SECRET_KEY_64}"
 
 services:
   zulip:
