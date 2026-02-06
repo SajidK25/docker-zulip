@@ -87,6 +87,7 @@ services:
       SECRETS_secret_key: "a_very_long_random_string_at_least_50_chars_please_change_this"
       SETTING_EXTERNAL_HOST: "${SERVICE_FQDN_ZULIP}"
       SETTING_ZULIP_ADMINISTRATOR: "admin@heal-digital.com"
+      SETTING_EMAIL_BACKEND: 'django.core.mail.backends.console.EmailBackend'
 
     volumes:
       - "zulip:/data:rw"
