@@ -29,7 +29,6 @@ services:
       ## The following two settings are required:
       SETTING_EXTERNAL_HOST: "${SERVICE_FQDN_ZULIP}"
       SETTING_ZULIP_ADMINISTRATOR: "admin@heal-digital.com"
-      SECRETS_secret_key: "${SERVICE_SECRET_KEY}"
 
       ## Most deploys do SSL termination outside of the container; Zulip
       ## defaults to only serving traffic over HTTP. If you'd like this

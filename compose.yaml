@@ -81,7 +81,7 @@ services:
       SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
       SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
       SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
-      SECRETS_secret_key: "${SERVICE_BASE64_SECRET_KEY_64}"
+      SECRETS_secret_key: "${SERVICE_SECRET_KEY}"
 
     volumes:
       - "zulip:/data:rw"
