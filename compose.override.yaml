@@ -13,14 +13,14 @@ secrets:
 
 services:
   zulip:
-    build:
-      args:
-        ## If you want to build zulip from a different repo/branch, you can
-        ## change these and run:
-        ##
-        ##  docker compose build zulip
-        ZULIP_GIT_URL: https://github.com/zulip/zulip.git
-        ZULIP_GIT_REF: "11.5"
+    # build:
+    #   args:
+    #     ## If you want to build zulip from a different repo/branch, you can
+    #     ## change these and run:
+    #     ##
+    #     ##  docker compose build zulip
+    #     ZULIP_GIT_URL: https://github.com/zulip/zulip.git
+    #     ZULIP_GIT_REF: "11.5"
     environment:
       ## See https://github.com/zulip/docker-zulip#configuration for
       ## details on this section and how to discover the many
