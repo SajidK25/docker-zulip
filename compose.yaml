@@ -72,7 +72,7 @@ services:
 
       # Connections
       # SETTING_REMOTE_POSTGRES_HOST: "127.0.0.1"
-      DB_HOST: "127.0.0.1"
+      DB_HOST: database
       DB_HOST_PORT: '5432'
       DB_USER: zulip
       SETTING_MEMCACHED_LOCATION: "localhost:11211"
