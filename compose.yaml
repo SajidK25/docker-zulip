@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: "zulip"
       POSTGRES_USER: "zulip"
-      POSTGRES_PASSWORD: "${SERVICE_PASSWORD_POSTGRES}"          # ← direct magic var (Coolify generates)
+      POSTGRES_PASSWORD: "WLsA5fwJ3bXbAwV0Ce0ql153Awe7GQpC"
     volumes:
       - "postgresql-14:/var/lib/postgresql/data:rw"
     attach: false
@@ -25,7 +25,7 @@ services:
     environment:
       SASL_CONF_PATH: "/home/memcache/memcached.conf"
       MEMCACHED_SASL_PWDB: "/home/memcache/memcached-sasl-db"
-      MEMCACHED_PASSWORD: "${SERVICE_PASSWORD_MEMCACHED}"         # ← direct
+      MEMCACHED_PASSWORD: "ue16lAs9PVsxMSBaJSRxEH8o9K0pUUxW"         # ← direct
     attach: false
 
   rabbitmq:
@@ -41,7 +41,7 @@ services:
         exec docker-entrypoint.sh rabbitmq-server
     environment:
       RABBITMQ_DEFAULT_USER: "zulip"
-      RABBITMQ_DEFAULT_PASS: "${SERVICE_PASSWORD_RABBITMQ}"       # ← direct
+      RABBITMQ_DEFAULT_PASS: "sMLHg8rOKrTYAfyyC1gVMxYfHXQ2L0n1"       # ← direct
     volumes:
       - "rabbitmq:/var/lib/rabbitmq:rw"
     attach: false
@@ -54,7 +54,7 @@ services:
       - "-euc"
       - '/usr/local/bin/docker-entrypoint.sh --requirepass "${REDIS_PASSWORD}"'
     environment:
-      REDIS_PASSWORD: "${SERVICE_PASSWORD_REDIS}"                 # ← direct
+      REDIS_PASSWORD: "OgyPTPi88HjcdvH2DYYjMn00Rj5QZ7qL"                 # ← direct
     volumes:
       - "redis:/data:rw"
     attach: false
@@ -80,10 +80,10 @@ services:
       SETTING_REDIS_HOST: "redis"
 
       # Secrets for Zulip (entrypoint reads these)
-      SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
-      SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
-      SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
-      SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
+      SECRETS_postgres_password: "WLsA5fwJ3bXbAwV0Ce0ql153Awe7GQpC"
+      SECRETS_memcached_password: "ue16lAs9PVsxMSBaJSRxEH8o9K0pUUxW"
+      SECRETS_rabbitmq_password: "sMLHg8rOKrTYAfyyC1gVMxYfHXQ2L0n1"
+      SECRETS_redis_password: "OgyPTPi88HjcdvH2DYYjMn00Rj5QZ7qL"
       SECRETS_secret_key: "OgyPTPi88HjcdvH2DYYjMn00Rj5QZ7qL"
       SETTING_EXTERNAL_HOST: "${SERVICE_FQDN_ZULIP}"
       SETTING_ZULIP_ADMINISTRATOR: "admin@heal-digital.com"
