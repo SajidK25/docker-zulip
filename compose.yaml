@@ -77,7 +77,7 @@ services:
       SETTING_REDIS_HOST: "redis"
 
       # Secrets for Zulip (entrypoint reads these)
-      # SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
+      SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
       SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
       SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
       SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
