@@ -1,31 +1,15 @@
 ---
 secrets:
-  ## You can either set these secrets in a file named .env in this directory, or
-  ## change these from "environment:" to "file:" with a path to store them on
-  ## disk.  Be sure that files, if you use them, do not contain trailing
-  ## newlines!
-  ##
-  ## You may also add additional secrets here, prefixed with zulip__, (and also
-  ## in the "secrets:" block inside the "zulip" service, below) in order to
-  ## propagate them into Zulip's /etc/zulip/zulip-secrets.conf
-  ##
-  ## --> https://docs.docker.com/reference/compose-file/secrets/
-  ##     https://docs.docker.com/compose/how-tos/use-secrets/
   zulip__postgres_password:
-    ## Note that you need to do a manual `ALTER ROLE` query if you
-    ## change this on a system after booting the postgres container
-    ## the first time on a host.  Instructions are available in README.md.
-    environment: "ZULIP__POSTGRES_PASSWORD"
+    environment: "${SERVICE_PASSWORD_POSTGRES}"
   zulip__memcached_password:
-    environment: "ZULIP__MEMCACHED_PASSWORD"
+    environment: "${SERVICE_PASSWORD_MEMCACHED}"
   zulip__rabbitmq_password:
-    environment: "ZULIP__RABBITMQ_PASSWORD"
+    environment: "${SERVICE_PASSWORD_RABBITMQ}"
   zulip__redis_password:
-    environment: "ZULIP__REDIS_PASSWORD"
+    environment: "${SERVICE_PASSWORD_REDIS}"
   zulip__secret_key:
-    environment: "ZULIP__SECRET_KEY"
-  zulip__email_password:
-    environment: "ZULIP__EMAIL_PASSWORD"
+    environment: "${SERVICE_BASE64_SECRET_KEY_64}"
 
 services:
   zulip:
