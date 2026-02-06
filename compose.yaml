@@ -76,8 +76,8 @@ services:
       DB_HOST_PORT: '5432'
       DB_USER: zulip
       SETTING_MEMCACHED_LOCATION: "localhost:11211"
-      SETTING_RABBITMQ_HOST: "127.0.0.1"
-      SETTING_REDIS_HOST: "127.0.0.1"
+      SETTING_RABBITMQ_HOST: "rabbitmq"
+      SETTING_REDIS_HOST: "redis"
 
       # Secrets for Zulip (entrypoint reads these)
       SECRETS_postgres_password: "WLsA5fwJ3bXbAwV0Ce0ql153Awe7GQpC"
