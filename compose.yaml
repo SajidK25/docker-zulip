@@ -71,13 +71,13 @@ services:
       LOADBALANCER_IPS: "172.16.0.0/12,10.0.0.0/8,192.168.0.0/16"
 
       # Connections
-      SETTING_REMOTE_POSTGRES_HOST: "database"
+      # SETTING_REMOTE_POSTGRES_HOST: "database"
       SETTING_MEMCACHED_LOCATION: "localhost:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
       SETTING_REDIS_HOST: "redis"
 
       # Secrets for Zulip (entrypoint reads these)
-      SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
+      # SECRETS_postgres_password: "${SERVICE_PASSWORD_POSTGRES}"
       SECRETS_memcached_password: "${SERVICE_PASSWORD_MEMCACHED}"
       SECRETS_rabbitmq_password: "${SERVICE_PASSWORD_RABBITMQ}"
       SECRETS_redis_password: "${SERVICE_PASSWORD_REDIS}"
