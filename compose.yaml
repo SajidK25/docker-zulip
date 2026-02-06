@@ -72,7 +72,7 @@ services:
 
       # Connections
       SETTING_REMOTE_POSTGRES_HOST: "database"
-      SETTING_MEMCACHED_LOCATION: "memcached:11211"
+      SETTING_MEMCACHED_LOCATION: "localhost:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
       SETTING_REDIS_HOST: "redis"
 
