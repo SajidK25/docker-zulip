@@ -71,7 +71,7 @@ services:
       LOADBALANCER_IPS: "172.16.0.0/12,10.0.0.0/8,192.168.0.0/16"
 
       # Connections
-      SETTING_REMOTE_POSTGRES_HOST: "127.0.0.1"
+      # SETTING_REMOTE_POSTGRES_HOST: "127.0.0.1"
       DB_HOST: "127.0.0.1"
       DB_HOST_PORT: '5432'
       DB_USER: zulip
